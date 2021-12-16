@@ -1,0 +1,16 @@
+{% extends "buttons_trial.html" %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <title>Upload your file</title>
+</head>
+
+<body>
+    <form method="post" action="/upload_run_saige" enctype="multipart/form-data">
+        <input type=file name=file>
+        <input type=submit value=Upload>
+    </form>
+
+</body>
+{% endblock %}

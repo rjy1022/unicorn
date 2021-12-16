@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='options.css') }}">
+</head>
+
+
+
+
+<body>
+    <div class="header-stats">Summary Statistics</div>
+    <form>
+        <a class="line" href="num_genes" target="_self">1. Number of unique genes</a>
+    </form>
+    <form>
+        <a class="line" href="pie_function" target="_self">2. Pie Chart for Gene Function</a>
+        <input type="button" onclick="showMessage()" value="show" />
+    </form>
+    <form>
+        <a class="line" href="pie_exonic_function">3. Pie Chart for Exonic Gene Function</a>
+    </form>
+
+</body>
+
+
+
+
+
+
+
+
+
+<body>
+    <div class="header-options">Select Test Options</div>
+
+
+    <div style="width: 100%; overflow: hidden;">
+        <div style="width: 6000px; float: left;"> Gene Functions </div>
+        <form method="post" action="/trial">
+            <input type="checkbox" name="test_option" value="All" onClick="ckChange(this)">All<br>
+            <input type="checkbox" name="test_option" value="Default" onClick="ckChange(this)">Default<br>
+            <input type="checkbox" name="test_option" value="Exonic" onClick="ckChange(this)">Exonic<br>
+            <input type="checkbox" name="test_option" value="Intronic" onClick="ckChange(this)">Intronic<br>
+            <input type="checkbox" name="test_option" value="Intergenic" onClick="ckChange(this)">Intergenic<br>
+            <input type="checkbox" name="test_option" value="UTR5" onClick="ckChange(this)">UTR5<br>
+            <input type="checkbox" name="test_option" value="ncRNA_intronic" onClick="ckChange(this)">ncRNA_intronic<br>
+            <input type="checkbox" name="test_option" value="UTR3" onClick="ckChange(this)">UTR3<br>
+            <input type="checkbox" name="test_option" value="upstream" onClick="ckChange(this)">upstream<br>
+            <input type="checkbox" name="test_option" value="downstream" onClick="ckChange(this)">downstream<br>
+            <input type="checkbox" name="test_option" value="splicing" onClick="ckChange(this)">splicing<br>
+
+            <div style="width: 6000px; float: left;"> Exonic Gene Functions </div>
+
+            <input type="checkbox" name="test_option" value="nonsynonymous SNV" onClick="ckChange(this)">Nonsynonymous
+            SNV<br>
+            <input type="checkbox" name="test_option" value="synonymous SNV" onClick="ckChange(this)">Synonymous SNV<br>
+            <input type="checkbox" name="test_option" value="stopgain" onClick="ckChange(this)">Stopgain<br>
+            <input type="checkbox" name="test_option" value="stoploss" onClick="ckChange(this)">Stoploss<br>
+            <input type="checkbox" name="test_option" value="startloss" onClick="ckChange(this)">Startloss<br>
+            <input type="checkbox" name="test_option" value="frameshift insertion" onClick="ckChange(this)">Frameshift
+            insertion<br>
+            <input type="checkbox" name="test_option" value="frameshift deletion" onClick="ckChange(this)">Frameshift
+            deletion<br>
+            <input type="checkbox" name="test_option" value="nonframeshift deletion"
+                onClick="ckChange(this)">Nonframeshift deletion<br>
+            <input type="checkbox" name="test_option" value="nonframeshift insertion"
+                onClick="ckChange(this)">Nonframeshift insertion<br>
+            <button type="submit" value="save">Submit</button>
+
+            <script src="https://code.jquery.com/jquery-3.2.1.js"
+                integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+            <script type="text/javascript">
+                $("input[type='checkbox']").click(function () {
+                    var val = $(this).attr('value');
+                    switch (val) {
+                        case 'All':
+                            if ($(this).is(':checked'))
+                                $(':checkbox').each(function () { this.checked = true; });
+                            break;
+                        case 'Default':
+                            if ($(this).is(':checked'))
+                                $("input[value='nonframeshift insertion'], input[value='nonframeshift deletion'], input[value='Exonic'], input[value='nonsynonymous SNV'], input[value='frameshift deletion'], input[value='frameshift insertion'], input[value='stoploss'], input[value='stopgain'], input[value='startloss']").prop('checked', true);
+                        case 'Exonic':
+                            if ($(this).is('disabled'))
+                                $("input[value='All'], input[value='Nonsynonymous SNV'], input[value='Synonymous SNV'], input[value='Stopgain'], input[value='Frameshift insertion'], input[value='Frameshift deletion'], input[value='Stoploss'], input[value='Nonframeshift deletion'], input[value='Nonframeshift insertion']").prop('disabled', true);
+                            break;
+
+
+
+                        default:
+                            break;
+                    }
+                });
+
+                $('.class_name').each(function () {
+                    $this.click(function () {
+                        if ($(this).is(':checked')) {
+                            $('.class_name').each(function () {
+                                if ($(this).not(':checked')) {
+                                    $(this).prop('disabled', true);
+                                }
+                            })
+                        }
+                    });
+                });
+            </script>
+        </form>
+    </div>
+    </div>
+
+    </form>
+</body>
+
+
+{% endblock %}
